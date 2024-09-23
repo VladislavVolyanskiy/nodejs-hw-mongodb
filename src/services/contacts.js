@@ -12,9 +12,10 @@ export const getContactById = async (contactId) => {
   if (!contact) {
     throw createHttpError(404, {
       status: 404,
-      message: `Student with id ${contactId} not found!`
+      // message: `Student with id ${contactId} not found!`
+      message: 'Contact not found'
     })
   };
 
-  return contact;
+    return contact;
 }

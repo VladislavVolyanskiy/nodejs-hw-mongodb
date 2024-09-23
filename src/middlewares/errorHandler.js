@@ -2,17 +2,18 @@ import { isHttpError } from 'http-errors';
 import { MongooseError } from 'mongoose';
 
 export const errorHandlerMiddleware = (err, req, res, next) => {
+
   if (isHttpError(err)) {
     return res.status(err.status).json({
-      message: err.name,
-      error: err.message,
+      // error: err.name,
+      message: err.message,
     });
   }
 
   if (err instanceof MongooseError) {
     return res.status(500).json({
       message: 'MongooseError',
-      error: err.message,
+      error: err.name,
     });
   }
 
@@ -22,7 +23,7 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
   });
 };
 
-// export const errorHandler = (err, req, res, next) => {
+// export const errorHandlerMiddleware = (err, req, res, next) => {
 //   res.status(500).json({
 //     message: 'Something went wrong',
 //     error: err.message,
