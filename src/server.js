@@ -23,7 +23,7 @@ const setupServer = () => {
     }),
   );
 
-  app.use(contactsRouter);
+  app.use('/contacts', contactsRouter);
 
   app.use('*', notFoundMiddleware);
 
