@@ -1,8 +1,8 @@
 import express from 'express';
-import pino from 'pino-http';
+// import pino from 'pino-http';
 import cors from 'cors';
-import contactsRouter from './routers/contacts.js';
 import { env } from './utils/env.js';
+import contactsRouter from './routers/contacts.js';
 import { notFoundMiddleware } from './middlewares/notFoundHandler.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandler.js';
 
@@ -13,17 +13,23 @@ const setupServer = () => {
   app.use(express.json());
   app.use(cors());
   app.use(
-    pino({
-      transport: {
-        target: 'pino-pretty',
-        options: {
-          colorize: true,
-        },
-      },
+    express.json({
+      type: ['application/json', 'application/vnd.api+json'],
     }),
   );
 
-  app.use('/contacts', contactsRouter);
+  // app.use(
+  //   pino({
+  //     transport: {
+  //       target: 'pino-pretty',
+  //       options: {
+  //         colorize: true,
+  //       },
+  //     },
+  //   }),
+  // );
+
+  app.use(contactsRouter);
 
   app.use('*', notFoundMiddleware);
 
