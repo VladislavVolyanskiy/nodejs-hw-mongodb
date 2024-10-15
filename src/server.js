@@ -27,7 +27,6 @@ export const setupServer = () => {
     }),
   );
 
-
   app.use(contactsRouter);
 
   app.use('*', notFoundMiddleware);
