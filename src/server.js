@@ -2,6 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import router from './routers/contacts.js';
+import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
 import { notFoundMiddleware } from './middlewares/notFoundHandler.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandler.js';
@@ -18,6 +19,7 @@ export const setupServer = () => {
     }),
   );
   app.use(cors());
+  app.use(cookieParser());
 
   app.use(
     pino({
