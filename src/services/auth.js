@@ -8,7 +8,8 @@ import { SessionsCollection } from '../db/models/session.js';
 
 export const registerUser = async (payload) => {
   const user = await UsersCollection.findOne({ email: payload.email });
-  if (user) throw createHttpError(409, 'email in use');
+  if (user)
+    throw createHttpError(409, 'User with this email already registered!');
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
