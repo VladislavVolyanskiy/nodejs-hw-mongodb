@@ -7,18 +7,18 @@ const parseSortOrder = (sortOrder) => {
 };
 
 const parseSortBy = (sortBy) => {
-  const keysOfStudent = [
+  const keysOfContacts = [
     '_id',
     'name',
     'phoneNumber',
     'email',
     'isFavourite',
     'contactType',
-    // 'createdAt',
-    // 'updatedAt',
+    'createdAt',
+    'updatedAt',
   ];
 
-  if (keysOfStudent.includes(sortBy)) {
+  if (keysOfContacts.includes(sortBy)) {
     return sortBy;
   }
 

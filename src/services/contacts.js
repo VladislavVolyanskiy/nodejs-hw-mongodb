@@ -3,14 +3,13 @@ import { contactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({
-  page = 1,
-  perPage = 10,
+  page,
+  perPage,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
   userId,
 }) => {
-  const limit = perPage;
   const skip = (page - 1) * perPage;
   const contactsQuery = contactsCollection.find({ userId });
   if (filter.userId) {
@@ -28,7 +27,7 @@ export const getAllContacts = async ({
     contactsCollection.find().merge(contactsQuery).countDocuments(),
     contactsQuery
       .skip(skip)
-      .limit(limit)
+      .limit(perPage)
       .sort({ [sortBy]: sortOrder })
       .exec(),
   ]);
@@ -60,16 +59,9 @@ export const updateContact = async (
   const rawResult = await contactsCollection.findByIdAndUpdate(
     { _id: contactId, userId },
     payload,
-    // { new: true, includeResultMetadata: true, ...options },
+
     { new: true, runValidators: true, ...options },
   );
-
-  // if (!rawResult || !rawResult.value) return null;
-
-  // return {
-  //   contact: rawResult.value,
-  //   isNew: Boolean(rawResult?.lastErrorObject?.upserted),
-  // };
 
   return rawResult;
 };
