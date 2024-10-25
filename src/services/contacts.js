@@ -60,16 +60,20 @@ export const updateContact = async (
     { _id: contactId, userId },
     payload,
 
-    { new: true, includeResultMetadata: true, ...options, },
+    { new: true, includeResultMetadata: true, ...options },
   );
 
   if (!rawResult || !rawResult.value) {
     return null;
   }
-return {
-    contact: rawResult.value,
-    isNew: Boolean(rawResult?.lastErrorObject?.upserted),
-  };
+
+  return rawResult.value;
+
+  // case of extra nesting
+  // return {
+  //     contact: rawResult.value,
+  //     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
+  //   };
 };
 
 export const deleteContact = async (contactId, userId) => {

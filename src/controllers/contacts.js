@@ -13,13 +13,11 @@ import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { env } from '../utils/env.js';
 
-
 export const getAllContactsController = async (req, res, next) => {
   try {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortBy, sortOrder } = parseSortParams(req.query);
     const filter = parseFilterParams(req.query);
-
 
     const contacts = await getAllContacts({
       page,
@@ -27,7 +25,7 @@ export const getAllContactsController = async (req, res, next) => {
       sortBy,
       sortOrder,
       filter,
-    userId: req.user._id,
+      userId: req.user._id,
     });
 
     res.json({
@@ -43,17 +41,16 @@ export const getAllContactsController = async (req, res, next) => {
 export const getContactByIdController = async (req, res, next) => {
   const { contactId } = req.params;
 
-    const contact = await getContactById(contactId, req.user._id);
-    if (!contact) {
-      throw createHttpError(404, 'Contact not found');
-    }
+  const contact = await getContactById(contactId, req.user._id);
+  if (!contact) {
+    throw createHttpError(404, 'Contact not found');
+  }
 
-    res.status(200).json({
-      status: 200,
-      message: `Successfully found contact with id ${contactId}!`,
-      data: contact,
-    });
-
+  res.status(200).json({
+    status: 200,
+    message: `Successfully found contact with id ${contactId}!`,
+    data: contact,
+  });
 };
 
 export const createContactController = async (req, res) => {
@@ -120,6 +117,7 @@ export const patchContactController = async (req, res, next) => {
     status: 200,
     message: 'Successfully patched a contact!',
     data: updatedContact,
+    // data: updatedContact.contact || updatedContact, // nested response 'flattering'
   });
 };
 
