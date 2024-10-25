@@ -3,11 +3,16 @@ import jwt from 'jsonwebtoken';
 import { randomBytes } from 'crypto';
 import { UsersCollection } from '../db/models/user.js';
 import createHttpError from 'http-errors';
-import { FIFTEEN_MINUTES, THIRTY_DAYS, SMTP, TEMPLATES_DIR } from '../constants/index.js';
+import {
+  FIFTEEN_MINUTES,
+  THIRTY_DAYS,
+  SMTP,
+  TEMPLATES_DIR,
+} from '../constants/index.js';
 import { SessionsCollection } from '../db/models/session.js';
 import { env } from '../utils/env.js';
 
-import  { sendMail }  from '../utils/sendMail.js';
+import { sendMail } from '../utils/sendMail.js';
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -106,7 +111,7 @@ export const requestResetToken = async (email) => {
     },
     env('JWT_SECRET'),
     {
-      expiresIn: '5m',
+      expiresIn: '10m',
     },
   );
 
