@@ -13,15 +13,17 @@ export const errorHandlerMiddleware = (err, req, res, next) => {
 
   if (err instanceof MongooseError) {
     return res.status(500).json({
+      status: 500,
       message: 'MongooseError',
       error: err.name,
     });
   }
 
-  res.status(500).json({
-    message: 'Something wrong on our side',
-    error: err.message,
-  });
+    res.status(500).json({
+        status: 500,
+        message: "Something went wrong",
+        data: err.message,
+    });
 };
 
 // import createHttpError from 'http-errors';
