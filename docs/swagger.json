@@ -83,7 +83,21 @@
                 "desc"
               ],
               "example": "asc"
-            }
+            },
+            "description": "Order to sort the results. Can be 'asc' or 'desc'."
+          },
+          {
+            "in": "query",
+            "name": "isFavorite",
+            "schema": {
+              "type": "boolean",
+              "enum": [
+                true,
+                false
+              ],
+              "example": true
+            },
+            "description": "This field allows to select favorite contacts"
           }
         ],
         "responses": {
@@ -127,27 +141,27 @@
                         },
                         "page": {
                           "type": "number",
-                          "example": 2
+                          "example": 1
                         },
                         "perPage": {
                           "type": "number",
-                          "example": 4
+                          "example": 10
                         },
                         "totalItems": {
                           "type": "number",
-                          "example": 4
+                          "example": 20
                         },
                         "totalPages": {
                           "type": "number",
-                          "example": 4
+                          "example": 2
                         },
                         "hasNextPage": {
                           "type": "boolean",
-                          "example": false
+                          "example": true
                         },
                         "hasPreviousPage": {
                           "type": "boolean",
-                          "example": true
+                          "example": false
                         }
                       }
                     }
@@ -158,6 +172,12 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -424,15 +444,25 @@
                       "example": "Successfully update a contact!"
                     },
                     "data": {
-                      "type": "object"
+                      "type": "object",
+                      "$ref": "#/components/schemas/contact"
                     }
                   }
                 }
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       },
@@ -463,8 +493,14 @@
           "204": {
             "description": "Delete contact by id"
           },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -501,12 +537,13 @@
                   "password": {
                     "type": "string",
                     "description": "User password",
-                    "example": "password123"
+                    "example": "anypassword95175"
                   }
                 }
               }
             }
-          }
+          },
+          "description": "User credentials required for authentication"
         },
         "responses": {
           "200": {
@@ -530,21 +567,25 @@
                       "example": "Successfully logged in!"
                     },
                     "data": {
-                      "type": "object",
-                      "properties": {
-                        "token": {
-                          "type": "string",
-                          "example": "dGhpcy5pcy5hLmV4YW1wbGV..."
-                        }
-                      }
+                      "type": "string",
+                      "example": "dGhpcy5pcy5hLmV4YW1wbGV..."
                     }
                   }
                 }
               }
             }
           },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
@@ -718,19 +759,11 @@
                 },
                 "message": {
                   "type": "string",
-                  "example": "NotFoundError"
+                  "example": "Not found"
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "Contact not found"
-                    }
-                  }
+                  "example": {}
                 }
               }
             }

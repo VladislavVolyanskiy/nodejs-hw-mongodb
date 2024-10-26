@@ -33,14 +33,6 @@ parameters:
       type: string
       enum: ['asc', 'desc']
       example: 'asc'
-    description: Order to sort the results. Can be 'asc' or 'desc'.
-  - in: query
-    name: isFavorite
-    schema:
-      type: boolean
-      enum: [true, false]
-      example: true
-    description: 'This field allows to select favorite contacts'
 responses:
   '200':
     description: Successfully found contacts!
@@ -76,25 +68,21 @@ responses:
                     $ref: '../../components/schemas/contact.yaml'
                 page:
                   type: number
-                  example: 1
+                  example: 2
                 perPage:
                   type: number
-                  example: 10
+                  example: 4
                 totalItems:
                   type: number
-                  example: 20
+                  example: 4
                 totalPages:
                   type: number
-                  example: 2
+                  example: 4
                 hasNextPage:
                   type: boolean
-                  example: true
+                  example: false
                 hasPreviousPage:
                   type: boolean
-                  example: false
-  '500':
-    $ref: ../../components/responses/500.yaml
-  '404':
-    $ref: ../../components/responses/404.yaml
+                  example: true
   '401':
     $ref: '../../components/responses/401.yaml'
