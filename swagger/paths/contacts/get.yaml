@@ -1,8 +1,8 @@
 tags:
   - Contacts
-summary: Get list of contacts
-operationId: getContacts
-description: 'Get list of users with this endpoint'
+summary: Get all user contacts
+operationId: getAllContacts
+description: 'Retrieve a list of contacts with optional filtering and sorting'
 security:
   - bearerAuth: []
 parameters:
@@ -10,12 +10,14 @@ parameters:
     name: page
     schema:
       type: integer
-    example: 1
+      example: 1
+    description: 'Page number for pagination'
   - in: query
     name: perPage
     schema:
       type: integer
       example: 10
+    description: 'Number of contacts per page'
   - in: query
     name: sortBy
     schema:
@@ -63,7 +65,7 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../components/schemas/contacts.yaml'
+                    $ref: '../../components/schemas/contact.yaml'
                 page:
                   type: number
                   example: 2

@@ -13,9 +13,9 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
-  - url: https://nodejs-hw-mongodb-53z5.onrender.com
+  - url: https://contacts-app-icis.onrender.com
 paths:
-  /contacts":
+  /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml
     post:
